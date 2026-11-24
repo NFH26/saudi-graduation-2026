@@ -144,16 +144,20 @@ footer a{color:var(--ink)}
 <label class="lbl" for="uni">الجامعة <span class="en" lang="en">University (graduate frames only)</span></label>
 <select id="uni">
 <option value="">بدون</option>
-<option value="0">جامعة كوينزلاند</option>
-<option value="1">جامعة كوينزلاند للتكنولوجيا</option>
-<option value="2">جامعة غريفيث</option>
-<option value="3">الجامعة الكاثوليكية الأسترالية</option>
-<option value="4">جامعة جنوب كوينزلاند</option>
-<option value="5">جامعة صن شاين كوست</option>
-<option value="6">جامعة سنترال كوينزلاند</option>
-<option value="7">جامعة جيمس كوك</option>
-<option value="8">جامعة بوند</option>
-<option value="9">جامعة ساوثرن كروس</option>
+<optgroup label="الجامعات الرئيسية">
+<option value="0">جامعة كوينزلاند (UQ)</option>
+<option value="1">جامعة كوينزلاند للتكنولوجيا (QUT)</option>
+<option value="2">جامعة غريفيث (Griffith)</option>
+<option value="3">جامعة جنوب كوينزلاند (UniSQ)</option>
+<option value="4">جامعة سنترال كوينزلاند (CQU)</option>
+</optgroup>
+<optgroup label="جامعات أخرى">
+<option value="5">الجامعة الكاثوليكية الأسترالية (ACU)</option>
+<option value="6">جامعة صن شاين كوست (UniSC)</option>
+<option value="7">جامعة جيمس كوك (JCU)</option>
+<option value="8">جامعة بوند (Bond)</option>
+<option value="9">جامعة ساوثرن كروس (SCU)</option>
+</optgroup>
 </select>
 </div>
 </div>
@@ -200,7 +204,7 @@ const VARIANTS = {
   proud: { title: 'فخورين بك', sub: 'So proud of you!' },
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
-const UNIS = [['جامعة كوينزلاند', 'The University of Queensland'], ['جامعة كوينزلاند للتكنولوجيا', 'Queensland University of Technology'], ['جامعة غريفيث', 'Griffith University'], ['الجامعة الكاثوليكية الأسترالية', 'Australian Catholic University'], ['جامعة جنوب كوينزلاند', 'University of Southern Queensland'], ['جامعة صن شاين كوست', 'University of the Sunshine Coast'], ['جامعة سنترال كوينزلاند', 'CQUniversity'], ['جامعة جيمس كوك', 'James Cook University'], ['جامعة بوند', 'Bond University'], ['جامعة ساوثرن كروس', 'Southern Cross University']];
+const UNIS = [['جامعة كوينزلاند', 'The University of Queensland'], ['جامعة كوينزلاند للتكنولوجيا', 'Queensland University of Technology'], ['جامعة غريفيث', 'Griffith University'], ['جامعة جنوب كوينزلاند', 'University of Southern Queensland'], ['جامعة سنترال كوينزلاند', 'CQUniversity'], ['الجامعة الكاثوليكية الأسترالية', 'Australian Catholic University'], ['جامعة صن شاين كوست', 'University of the Sunshine Coast'], ['جامعة جيمس كوك', 'James Cook University'], ['جامعة بوند', 'Bond University'], ['جامعة ساوثرن كروس', 'Southern Cross University']];
 const GRAD_FRAMES = ['grad_m', 'grad_f'];
 const DEGREES = [['دبلوم اللغة الإنجليزية', 'English Diploma'], ['البكالوريوس', "Bachelor's"], ['الماجستير', "Master's"], ['الدكتوراة', 'PhD']];
 // Frame parts are kept small: logo badge at the top, one compact card at the bottom (under 20% of the photo)
