@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Saudi Students Association in Brisbane//Graduation 2026//AR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Australia/Brisbane
+X-LIC-LOCATION:Australia/Brisbane
+BEGIN:STANDARD
+TZOFFSETFROM:+1000
+TZOFFSETTO:+1000
+TZNAME:AEST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:saudi-graduation-2026@grad.nfh.sa
+DTSTAMP:20261124T000000Z
+DTSTART;TZID=Australia/Brisbane:20261125T130000
+DTEND;TZID=Australia/Brisbane:20261125T143000
+SUMMARY:حفل تخريج الطلبة السعوديين في برزبن 2
+ 026 | Saudi Graduation Ceremony 2026
+DESCRIPTION:البث المباشر لحفل تخريج الطلبة الس
+ عوديين من جامعات كوينزلاند.\nيبدأ الساعة 
+ 1.00 مساءً بتوقيت برزبن (6.00 صباحًا بتوقيت ا
+ لسعودية).\nرابط الصفحة والبث: https://grad.nfh.sa/\n
+ \nLive stream of the Saudi Graduation Ceremony 2026\, Brisbane.\nStarts 1.
+ 00 pm Brisbane time (6.00 am Saudi time).\nPage and live link: https://gra
+ d.nfh.sa/
+LOCATION:Brisbane\, Queensland | https://grad.nfh.sa/
+URL:https://grad.nfh.sa/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:حفل التخرج غدًا | Graduation ceremony tomorrow
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:يبدأ البث بعد 30 دقيقة | Live stream starts in 
+ 30 minutes
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
