@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حفل التخرج 2026 مباشر</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<style>
+/* VOICE occasion, formal and warm: a ceremony page for families watching from Brisbane and Saudi Arabia
+   IDEA the printed A5 ceremony program from the club's PSD, brought online, Arabic first and right to left
+   PICTURE the purple "when" band: live countdown with Brisbane and Saudi clocks side by side
+   COLOUR white ground, club purple #452E5E dominant, teal #7BCED5 support, pink #D976B0 accent, faceted corner shapes
+   TYPE Readex Pro for Arabic and English
+   LAYOUT laptop: logo block, full-width purple time band, program list, follow band; phone: same order stacked */
+:root{color-scheme:light;--bg:#ffffff;--ink:#452E5E;--soft:#5d4a73;--teal:#7BCED5;--teal-l:#e4f5f6;--pink:#D976B0;--pink-t:#B24D88;--grey:#D5D4D5;--red:#D7263D}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:17px/1.6 'Readex Pro',Tahoma,'Segoe UI',sans-serif;overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.en{direction:ltr;unicode-bidi:isolate;font-size:.82em;font-weight:500;color:var(--soft)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff 55%,var(--grey) 100%)}
+.hero .deco{position:absolute;left:0;bottom:0;width:min(62vw,760px);height:auto;pointer-events:none;transform:scaleX(-1)}
+.hero .wrap{position:relative;padding-top:clamp(20px,3vw,36px);padding-bottom:clamp(36px,6vw,80px)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.top img{height:clamp(44px,6vw,64px);width:auto}
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 18px;font-weight:600;font-size:16px}
+.pill .en{color:#E4DCEE}
+.pill .dot{width:10px;height:10px;border-radius:50%;background:var(--pink);flex:none}
+.pill.live{background:var(--red)}
+.pill.live .dot{background:#fff}
+.pill.live .en{color:#fff}
+.lockup{width:min(100%,760px);margin:clamp(24px,4vw,48px) 0 clamp(20px,3vw,32px)}
+.degrees{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:3px solid var(--teal);max-width:760px;background:rgba(255,255,255,.7)}
+.degrees div{padding:12px 6px;text-align:center;display:flex;flex-direction:column;gap:2px;border-inline-end:2px solid #CFEBEE}
+.degrees div:last-child{border:0}
+.degrees b{font-size:clamp(15px,1.7vw,19px);font-weight:600;line-height:1.35}
+.degrees .en{font-size:13px;font-weight:600;color:var(--pink-t)}
+.when{background:var(--ink);color:#fff}
+.when .en{color:#E4DCEE}
+.when .wrap{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(28px,4vw,56px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.count{display:flex;flex-direction:column;justify-content:center;gap:8px}
+.lbl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;color:var(--teal);font-weight:600;font-size:18px;flex-wrap:wrap}
+.when .lbl .en{color:var(--teal);font-size:14px}
+.date{font-size:clamp(22px,2.4vw,28px);font-weight:600;line-height:1.3;display:flex;flex-direction:column}
+.date .en{font-size:16px}
+.big{font-size:clamp(42px,5vw,62px);font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.city{background:rgba(255,255,255,.08);border:1px solid rgba(123,206,213,.4);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.city .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.city .t b{font-size:clamp(30px,3.2vw,42px);line-height:1.15;white-space:nowrap}
+.city .t .en{font-size:18px;font-weight:600;white-space:nowrap}
+.city .now{display:flex;justify-content:space-between;gap:10px;font-size:15px;color:#E4DCEE;flex-wrap:wrap}
+.city .now b{white-space:nowrap}
+.watch{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px 14px;min-height:56px;border-radius:16px;font-size:19px;font-weight:600;text-decoration:none;padding:12px 20px;text-align:center;flex-wrap:wrap}
+a.watch{background:var(--teal);color:var(--ink)}
+a.watch .en{color:var(--ink)}
+a.watch:hover{background:#9adde2}
+a.watch:focus-visible{outline:3px solid #fff;outline-offset:3px}
+span.watch{border:2px dashed rgba(123,206,213,.6);color:#fff}
+.prog .wrap{padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:8px 16px;flex-wrap:wrap;padding-bottom:14px;border-bottom:3px solid var(--teal)}
+.head h2{margin:0;font-size:clamp(30px,3.6vw,42px);line-height:1.15}
+.head p{margin:4px 0 0;color:var(--soft);font-size:16px}
+.head .en{font-size:15px;text-align:left}
+.head .en b{display:block;font-size:clamp(20px,2.2vw,26px);color:var(--ink);font-weight:600}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:center;padding:14px 10px;border-bottom:2px solid var(--teal-l)}
+.rows li.on{background:var(--teal-l);border-radius:12px}
+.rows .tm{display:flex;flex-direction:column;line-height:1.35}
+.rows .bne{font-weight:700;font-size:19px;color:var(--pink-t);white-space:nowrap}
+.rows .ksa{font-size:14px;color:var(--soft);white-space:nowrap}
+.rows .ar{font-weight:600;font-size:19px;line-height:1.45}
+.rows .en{font-size:15px;line-height:1.35;text-align:left}
+.rows .tag{display:inline-block;margin-inline-start:8px;background:var(--red);color:#fff;border-radius:999px;padding:1px 10px;font-size:13px;vertical-align:middle}
+.follow{background:var(--teal)}
+.follow .wrap{padding-top:28px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:16px 28px;flex-wrap:wrap}
+.follow h2{margin:0;font-size:26px;line-height:1.2}
+.follow h2 .en{color:var(--ink);font-size:17px}
+.links{display:flex;gap:12px;flex-wrap:wrap}
+.links a{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;border-radius:999px;padding:8px 8px 8px 18px;min-height:52px;font-weight:500;direction:ltr;flex-direction:row-reverse}
+.links a:hover{background:#5a3f78}
+.links a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.links img{width:36px;height:36px}
+footer .wrap{padding-top:28px;padding-bottom:36px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--soft);font-size:15px}
+footer img{height:56px;width:auto}
+footer .names{display:flex;flex-direction:column}
+@media(max-width:900px){.when .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.count{grid-column:1/-1}}
+@media(max-width:700px){.rows li{grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 6px}.rows .tm{grid-row:1/3}.rows .ar{grid-column:2}.rows .en{grid-column:2;text-align:right}}
+@media(max-width:480px){.city .t b{font-size:26px}.city{padding:14px}.degrees .en{font-size:12px}.hero .deco{width:90vw}.rows .bne{font-size:17px}}
+@media(prefers-reduced-motion:no-preference){.pill.live .dot{animation:pulse 1.6s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.35}}
+</style>
+</head>
+<body>
+<header class="hero">
+<svg class="deco" viewBox="0 0 760 420" aria-hidden="true"><polygon points="0,420 760,40 760,420" fill="#7BCED5"/><polygon points="180,420 350,362 460,420" fill="#8BBE55"/><polygon points="390,420 760,0 760,420" fill="#452E5E"/><path d="M-160,420 L250,190 L760,-60" stroke="#D976B0" stroke-width="6" fill="none"/></svg>
+<div class="wrap">
+<div class="top">
+<span class="pill" id="status"><span class="dot"></span><span id="statusAr">يبدأ البث قريبًا</span><span class="en" lang="en" id="statusEn">Starting soon</span></span>
+<img src="moe_sacm_navy.png" alt="وزارة التعليم والملحقية الثقافية السعودية في أستراليا">
+</div>
+<img class="lockup" src="grad_lockup_navy.png" alt="نادي الطلبة السعوديين في برزبن، حفل التخرج 2026">
+<div class="degrees">
+<div><b>دبلوم اللغة الإنجليزية</b><span class="en" lang="en">English Diploma</span></div>
+<div><b>البكالوريوس</b><span class="en" lang="en">Bachelor</span></div>
+<div><b>الماجستير</b><span class="en" lang="en">Master</span></div>
+<div><b>الدكتوراه</b><span class="en" lang="en">PhD</span></div>
+</div>
+</div>
+</header>
+
+<section class="when" aria-label="موعد الحفل">
+<div class="wrap">
+<div class="count">
+<div class="lbl"><span id="cdAr">يبدأ الحفل بعد</span><span class="en" lang="en" id="cdEn">Starts in</span></div>
+<div class="big" id="countdown">--:--:--</div>
+<div class="date">الأربعاء 25 نوفمبر 2026<span class="en" lang="en">Wednesday 25 November 2026</span></div>
+</div>
+<div class="city">
+<div class="lbl"><span>بتوقيت برزبن</span><span class="en" lang="en">Brisbane time</span></div>
+<div class="t"><b>1.00 مساءً</b><span class="en" lang="en">1.00 pm</span></div>
+<div class="now"><span>الوقت الآن <b id="bneNow">--</b></span><span class="en" lang="en">AEST, UTC+10</span></div>
+</div>
+<div class="city">
+<div class="lbl"><span>بتوقيت السعودية</span><span class="en" lang="en">Saudi time</span></div>
+<div class="t"><b>6.00 صباحًا</b><span class="en" lang="en">6.00 am</span></div>
+<div class="now"><span>الوقت الآن <b id="ksaNow">--</b></span><span class="en" lang="en">AST, UTC+3</span></div>
+</div>
+<span class="watch" id="watch"><span>سيُنشر رابط البث المباشر هنا قبل بدء الحفل</span><span class="en" lang="en">The live stream link will be posted here before the ceremony starts</span></span>
+</div>
+</section>
+
+<section class="prog" aria-labelledby="progTitle">
+<div class="wrap">
+<div class="head">
+<div><h2 id="progTitle">فقرات الحفل</h2><p>بتوقيت برزبن والسعودية</p></div>
+<div class="en" lang="en"><b>Event Segments</b>Brisbane and Saudi times</div>
+</div>
+<ol class="rows" id="rows"></ol>
+</div>
+</section>
+
+<section class="follow" aria-labelledby="followTitle">
+<div class="wrap">
+<h2 id="followTitle">تابعونا <span class="en" lang="en">Follow us</span></h2>
+<div class="links">
+<a href="https://x.com/SauClubBrisbane"><img src="circle_x.svg" alt="X"><span>SauClubBrisbane</span></a>
+<a href="https://www.instagram.com/SauClubBrisbane"><img src="circle_instagram.svg" alt="Instagram"><span>SauClubBrisbane</span></a>
+<a href="https://www.snapchat.com/explore/Saudi.Brisbane"><img src="circle_snapchat.svg" alt="Snapchat"><span>Saudi.Brisbane</span></a>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<div class="names"><span>نادي الطلبة السعوديين في برزبن</span><span class="en" lang="en">Saudi Students Association in Brisbane</span></div>
+<img src="ssa_mark_color.png" alt="شعار نادي الطلبة السعوديين في برزبن">
+</div>
+</footer>
+
+<script>
+{
+// ضع رابط Zoom أو YouTube هنا عندما يكون جاهزًا. Paste the live link here when it is ready.
+const LIVE_URL = '';
+const DAY = Date.UTC(2026, 10, 25, 0, 0, 0) - 10 * 3600000; // midnight 25 Nov in Brisbane
+const START = DAY + 13 * 3600000;
+const END = DAY + (14 * 60 + 30) * 60000;
+const ITEMS = [
+  [780, 'السلام الملكي', 'Saudi National Anthem'],
+  [785, 'الكلمة الترحيبية', 'Welcome Address'],
+  [790, 'تلاوة آيات من القرآن الكريم', 'Recitation from the Holy Quran'],
+  [795, 'كلمة رئيس النادي الطلابي', 'Address by the President of the Student Club'],
+  [800, 'كلمة سعادة الملحق الثقافي', 'Address by the Cultural Attaché'],
+  [805, 'كلمة القنصلية', 'Address by the Consulate'],
+  [810, 'كلمة الخريجين', "Graduates' Address"],
+  [815, 'فقرة شعرية', 'Poetry Recital'],
+  [820, 'عرض الفيلم التعريفي', 'Promotional Video'],
+  [825, 'كلمة الرعاة', 'Address by the Sponsors'],
+  [830, 'تكريم الخريجين والداعمين', 'Honouring of Graduates and Supporters'],
+  [870, 'حفل الاستقبال والضيافة', 'Reception and Refreshments'],
+  [930, 'لقاء سعادة الملحق الثقافي بمبتعثي ولاية كوينزلاند', "Cultural Attaché's Meeting with Queensland Scholarship Students"]
+];
+const ar = (min) => {
+  const h = ((Math.floor(min / 60) % 24) + 24) % 24, m = ((min % 60) + 60) % 60;
+  return (h % 12 || 12) + '.' + String(m).padStart(2, '0') + ' ' + (h < 12 ? 'صباحًا' : 'مساءً');
+};
+document.getElementById('rows').innerHTML = ITEMS.map((it, i) =>
+  '<li id="r' + i + '"><span class="tm"><span class="bne">' + ar(it[0]) + '</span><span class="ksa">' + ar(it[0] - 420) + ' بالسعودية</span></span>' +
+  '<span class="ar">' + it[1] + '</span><span class="en" lang="en">' + it[2] + '</span></li>').join('');
+
+if (LIVE_URL) {
+  const a = document.createElement('a');
+  a.className = 'watch';
+  a.href = LIVE_URL;
+  a.innerHTML = '<span>شاهد الحفل مباشرة</span><span class="en" lang="en">Watch the ceremony live</span>';
+  document.getElementById('watch').replaceWith(a);
+}
+
+const clock = (tz, now) => {
+  try {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: false }).formatToParts(new Date(now));
+    const g = (t) => Number((p.find((x) => x.type === t) || {}).value || 0);
+    return ar(g('hour') * 60 + g('minute'));
+  } catch (e) { return '--'; }
+};
+const pad = (n) => String(n).padStart(2, '0');
+const el = (id) => document.getElementById(id);
+let current = -1;
+const tick = () => {
+  const now = Date.now();
+  el('bneNow').textContent = clock('Australia/Brisbane', now);
+  el('ksaNow').textContent = clock('Asia/Riyadh', now);
+  const pill = el('status');
+  if (now < START) {
+    let s = Math.floor((START - now) / 1000);
+    const h = Math.floor(s / 3600); s -= h * 3600;
+    const m = Math.floor(s / 60); s -= m * 60;
+    el('countdown').textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+  } else if (now < END) {
+    el('countdown').textContent = 'مباشر الآن';
+    el('cdAr').textContent = 'الحفل يُبث الآن';
+    el('cdEn').textContent = 'Live now';
+    pill.classList.add('live');
+    el('statusAr').textContent = 'مباشر';
+    el('statusEn').textContent = 'Live';
+  } else {
+    el('countdown').textContent = 'شكرًا لكم';
+    el('cdAr').textContent = 'انتهى الحفل';
+    el('cdEn').textContent = 'Thank you for watching';
+    pill.classList.remove('live');
+    el('statusAr').textContent = 'انتهى الحفل';
+    el('statusEn').textContent = 'Ceremony ended';
+  }
+  let idx = -1;
+  ITEMS.forEach((it, i) => { if (now >= DAY + it[0] * 60000 && now < DAY + 24 * 3600000) idx = i; });
+  if (idx !== current) {
+    if (current >= 0) { const o = el('r' + current); o.classList.remove('on'); const t = o.querySelector('.tag'); if (t) t.remove(); }
+    if (idx >= 0) { const n = el('r' + idx); n.classList.add('on'); n.querySelector('.ar').insertAdjacentHTML('beforeend', '<span class="tag">الآن</span>'); }
+    current = idx;
+  }
+};
+tick();
+const timer = setInterval(tick, 1000);
+}
+</script>
+</body>
+</html>
