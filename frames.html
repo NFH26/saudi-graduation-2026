@@ -173,7 +173,7 @@ footer a{color:var(--ink)}
 
 <script>
 {
-const PURPLE = '#452E5E', TEAL = '#7BCED5', PINK = '#D976B0', PINK_T = '#B24D88', GREEN = '#8BBE55', SOFT = '#E4DCEE';
+const PURPLE = '#452E5E', TEAL = '#7BCED5', PINK = '#D976B0', PINK_T = '#B24D88', SOFT = '#E4DCEE';
 const FONT = "'Readex Pro', Tahoma, sans-serif";
 const VARIANTS = {
   attend: { title: 'سأحضر الحفل', sub: "I'm attending!", date: true },
@@ -184,9 +184,10 @@ const VARIANTS = {
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
 const DEGREES = [['دبلوم اللغة الإنجليزية', 'English Diploma'], ['البكالوريوس', "Bachelor's"], ['الماجستير', "Master's"], ['الدكتوراة', 'PhD']];
+// Frame parts are kept small: logo badge at the top, one compact card at the bottom (under 20% of the photo)
 const LAYOUT = {
-  story: { W: 1080, H: 1920, badgeW: 520, badgeH: 186, badgeY: 44, lockW: 456, panelH: 430, title: 124, sub: 42, chip: 34, name: 50, foot: 28, gap: 12, facet: 0.72 },
-  square: { W: 1080, H: 1080, badgeW: 390, badgeH: 140, badgeY: 28, lockW: 338, panelH: 300, title: 86, sub: 30, chip: 26, name: 38, foot: 22, gap: 8, facet: 0.5 }
+  story: { W: 1080, H: 1920, badgeW: 390, badgeH: 128, badgeY: 40, lockW: 348, maxW: 900, minW: 600, padX: 50, padY: 28, bottom: 56, radius: 40, title: 94, sub: 33, chip: 26, name: 39, foot: 24, gap: 16 },
+  square: { W: 1080, H: 1080, badgeW: 280, badgeH: 92, badgeY: 24, lockW: 250, maxW: 850, minW: 460, padX: 36, padY: 20, bottom: 30, radius: 30, title: 62, sub: 23, chip: 19, name: 28, foot: 18, gap: 11 }
 };
 const cv = document.getElementById('cv');
 const ctx = cv.getContext('2d');
@@ -196,7 +197,7 @@ const lockup = new Image();
 lockup.src = 'grad_lockup_navy.png';
 
 const roundRect = (c, x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
-
+const isLatin = (t) => !/[؀-ۿ]/.test(t);
 const coverScale = (L) => state.img ? Math.max(L.W / state.img.width, L.H / state.img.height) : 1;
 const clampOffsets = (L) => {
   if (!state.img) return;
@@ -206,10 +207,59 @@ const clampOffsets = (L) => {
   state.oy = Math.min(my, Math.max(-my, state.oy));
 };
 
+// measure a line with its real glyph height, shrinking it if it is too wide
+function measure(c, text, weight, size, maxW, dir) {
+  let s = size;
+  c.direction = dir; c.font = `${weight} ${s}px ${FONT}`;
+  let m = c.measureText(text);
+  while (m.width > maxW && s > 10) { s -= 1; c.font = `${weight} ${s}px ${FONT}`; m = c.measureText(text); }
+  return { text, weight, size: s, dir, w: m.width, asc: m.actualBoundingBoxAscent, desc: m.actualBoundingBoxDescent };
+}
+
+function buildRows(c, L) {
+  const v = VARIANTS[state.variant];
+  const inner = L.maxW - 2.8 * L.padX;
+  const deg = state.degree === '' ? null : DEGREES[Number(state.degree)];
+  const name = state.name.trim();
+  const rows = [];
+  const text = (m, color, gapAfter) => ({ kind: 'text', m, color, w: m.w, h: m.asc + m.desc, gapAfter });
+  rows.push(text(measure(c, v.title, 700, L.title, inner, v.ltr ? 'ltr' : 'rtl'), '#FFFFFF', L.gap * 1.35));
+  if (v.sub) rows.push(text(measure(c, v.sub, 600, L.sub, inner, 'ltr'), TEAL, L.gap * 1.2));
+  let chip = null, nm = null;
+  if (deg) {
+    const m = measure(c, deg[0] + '  |  ' + deg[1], 600, L.chip, inner - L.chip * 1.8, 'rtl');
+    chip = { m, bw: m.w + L.chip * 1.8, bh: L.chip * 1.9 };
+  }
+  if (name) nm = measure(c, name, 600, L.name, inner, 'rtl');
+  if (chip && nm && chip.bw + L.chip + nm.w <= inner) {
+    rows.push({ kind: 'pair', chip, nm, w: chip.bw + L.chip + nm.w, h: Math.max(chip.bh, nm.asc + nm.desc), gapAfter: L.gap });
+  } else {
+    if (chip) rows.push({ kind: 'chip', chip, w: chip.bw, h: chip.bh, gapAfter: L.gap });
+    if (nm) rows.push(text(nm, '#FFFFFF', L.gap));
+  }
+  const foot = VARIANTS[state.variant].date ? 'الأربعاء 25 نوفمبر  •  1.00 مساءً برزبن  •  6.00 صباحًا السعودية' : state.variant === 'class' ? 'حفل تخرج الطلبة السعوديين في برزبن' : 'Class of 2026';
+  rows.push(text(measure(c, foot, 500, L.foot, inner, isLatin(foot) ? 'ltr' : 'rtl'), SOFT, 0));
+  return rows;
+}
+
+function drawText(c, m, color, cx, baseline) {
+  c.direction = m.dir; c.font = `${m.weight} ${m.size}px ${FONT}`; c.fillStyle = color;
+  c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.fillText(m.text, cx, baseline);
+}
+function drawChip(c, chip, cx, top) {
+  c.fillStyle = PINK_T; roundRect(c, cx - chip.bw / 2, top, chip.bw, chip.bh, chip.bh / 2); c.fill();
+  drawText(c, chip.m, '#FFFFFF', cx, top + chip.bh / 2 + (chip.m.asc - chip.m.desc) / 2);
+}
+
 function drawFrame(c, L, opts) {
-  const { W, H, panelH } = L;
-  const topH = L.badgeY + L.badgeH;
-  const py = H - panelH;
+  const { W, H } = L;
+  const rows = buildRows(c, L);
+  const contentH = rows.reduce((a, r) => a + r.h + r.gapAfter, 0);
+  const cw = Math.min(L.maxW, Math.max(L.minW, Math.max(...rows.map((r) => r.w)) + 2.8 * L.padX));
+  const ch = contentH + 2 * L.padY;
+  const cx0 = (W - cw) / 2, cy0 = H - L.bottom - ch;
+  const badgeBottom = L.badgeY + L.badgeH;
   // photo or placeholder
   if (!opts.overlay) {
     if (state.img) {
@@ -218,71 +268,43 @@ function drawFrame(c, L, opts) {
       c.drawImage(state.img, (W - w) / 2 + state.ox, (H - h) / 2 + state.oy, w, h);
     } else {
       c.fillStyle = '#EDE8F2'; c.fillRect(0, 0, W, H);
-      const cy = topH + (py - topH) / 2;
+      const cy = badgeBottom + (cy0 - badgeBottom) / 2;
       c.strokeStyle = '#B8ACC8'; c.lineWidth = 8; c.lineJoin = 'round';
       c.beginPath(); c.moveTo(W / 2 - 110, cy - 30); c.lineTo(W / 2 - 55, cy - 30); c.lineTo(W / 2 - 25, cy - 70); c.lineTo(W / 2 + 25, cy - 70); c.lineTo(W / 2 + 55, cy - 30); c.lineTo(W / 2 + 110, cy - 30); c.lineTo(W / 2 + 110, cy + 90); c.lineTo(W / 2 - 110, cy + 90); c.closePath(); c.stroke();
       c.beginPath(); c.arc(W / 2, cy + 25, 42, 0, Math.PI * 2); c.stroke();
-      c.fillStyle = '#7E6E93'; c.textAlign = 'center'; c.direction = 'rtl';
-      c.font = `600 ${Math.round(L.sub * 0.9)}px ${FONT}`; c.fillText('أضف صورتك', W / 2, cy + 175);
+      c.fillStyle = '#7E6E93'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.direction = 'rtl';
+      c.font = `600 ${Math.round(L.title * 0.42)}px ${FONT}`; c.fillText('أضف صورتك', W / 2, cy + 165);
     }
   }
-  // small white logo badge at the top
+  // logo badge (no extra lines)
   const bx = (W - L.badgeW) / 2;
-  c.save(); c.shadowColor = 'rgba(0, 0, 0, 0.18)'; c.shadowBlur = 24; c.shadowOffsetY = 6;
-  c.fillStyle = '#FFFFFF'; roundRect(c, bx, L.badgeY, L.badgeW, L.badgeH, L.badgeH * 0.16); c.fill(); c.restore();
-  c.fillStyle = TEAL; c.fillRect(bx + L.badgeW * 0.3, L.badgeY + L.badgeH - 7, L.badgeW * 0.4, 4);
+  c.save(); c.shadowColor = 'rgba(0, 0, 0, 0.16)'; c.shadowBlur = 10; c.shadowOffsetY = 3;
+  c.fillStyle = '#FFFFFF'; roundRect(c, bx, L.badgeY, L.badgeW, L.badgeH, L.badgeH * 0.18); c.fill(); c.restore();
   if (lockup.complete && lockup.naturalWidth) {
     const lw = L.lockW, lh = lw * lockup.naturalHeight / lockup.naturalWidth;
-    c.drawImage(lockup, (W - lw) / 2, L.badgeY + (L.badgeH - 6 - lh) / 2, lw, lh);
+    c.drawImage(lockup, (W - lw) / 2, L.badgeY + (L.badgeH - lh) / 2, lw, lh);
   }
-  // facets on the panel edge
-  const f = L.facet;
-  c.fillStyle = TEAL; c.beginPath(); c.moveTo(0, py); c.lineTo(0, py - 120 * f); c.lineTo(520 * f, py); c.closePath(); c.fill();
-  c.fillStyle = GREEN; c.beginPath(); c.moveTo(300 * f, py); c.lineTo(420 * f, py - 34 * f); c.lineTo(480 * f, py); c.closePath(); c.fill();
-  c.fillStyle = PURPLE; c.beginPath(); c.moveTo(W, py); c.lineTo(W, py - 150 * f); c.lineTo(W - 300 * f, py); c.closePath(); c.fill();
-  c.strokeStyle = PINK; c.lineWidth = 7 * Math.max(f, 0.7); c.beginPath(); c.moveTo(0, py - 170 * f); c.lineTo(640 * f, py + 2); c.stroke();
-  // purple panel
-  c.fillStyle = PURPLE; c.fillRect(0, py, W, panelH);
-  // text block, measured then centred vertically
-  const v = VARIANTS[state.variant];
-  const deg = state.degree === '' ? null : DEGREES[Number(state.degree)];
-  const name = state.name.trim();
-  const rows = [['title', L.title * 1.12]];
-  if (v.sub) rows.push(['sub', L.sub * 1.25]);
-  if (deg) rows.push(['chip', L.chip * 2]);
-  if (name) rows.push(['name', L.name * 1.3]);
-  rows.push(['foot', L.foot * 1.3]);
-  const total = rows.reduce((a, r) => a + r[1], 0) + L.gap * (rows.length - 1);
-  let y = py + (panelH - total) / 2;
-  c.textAlign = 'center'; c.textBaseline = 'middle';
-  for (const [kind, h] of rows) {
-    const mid = y + h / 2;
-    if (kind === 'title') { c.direction = v.ltr ? 'ltr' : 'rtl'; c.fillStyle = '#FFFFFF'; c.font = `700 ${L.title}px ${FONT}`; fitText(c, v.title, W / 2, mid, W - 120, L.title, 700); }
-    if (kind === 'sub') { c.direction = 'ltr'; c.fillStyle = TEAL; c.font = `600 ${L.sub}px ${FONT}`; c.fillText(v.sub, W / 2, mid); }
-    if (kind === 'chip') {
-      c.direction = 'rtl'; c.font = `600 ${L.chip}px ${FONT}`;
-      const label = deg[0] + '   |   ' + deg[1];
-      const tw = Math.min(c.measureText(label).width, W - 200);
-      const cw = tw + L.chip * 1.6, ch = L.chip * 1.9;
-      c.fillStyle = PINK_T; roundRect(c, (W - cw) / 2, mid - ch / 2, cw, ch, ch / 2); c.fill();
-      c.fillStyle = '#FFFFFF'; fitText(c, label, W / 2, mid + 2, W - 200, L.chip, 600);
+  // bottom card with a small brand accent in its corner
+  c.save(); c.shadowColor = 'rgba(0, 0, 0, 0.18)'; c.shadowBlur = 10; c.shadowOffsetY = 3;
+  c.fillStyle = PURPLE; roundRect(c, cx0, cy0, cw, ch, L.radius); c.fill(); c.restore();
+  c.save(); roundRect(c, cx0, cy0, cw, ch, L.radius); c.clip();
+  c.fillStyle = TEAL; c.beginPath(); c.moveTo(cx0, cy0 + ch); c.lineTo(cx0, cy0 + ch * 0.76); c.lineTo(cx0 + cw * 0.05, cy0 + ch); c.closePath(); c.fill();
+  c.strokeStyle = PINK; c.lineWidth = Math.max(3, L.title * 0.04); c.beginPath(); c.moveTo(cx0, cy0 + ch * 0.64); c.lineTo(cx0 + cw * 0.085, cy0 + ch); c.stroke();
+  c.restore();
+  // rows
+  const mid = W / 2;
+  let y = cy0 + L.padY;
+  for (const r of rows) {
+    if (r.kind === 'text') drawText(c, r.m, r.color, mid, y + r.m.asc);
+    if (r.kind === 'chip') drawChip(c, r.chip, mid, y);
+    if (r.kind === 'pair') {
+      const left = mid - r.w / 2;
+      // RTL reading: name on the right, degree chip on the left
+      drawText(c, r.nm, '#FFFFFF', left + r.w - r.nm.w / 2, y + r.h / 2 + (r.nm.asc - r.nm.desc) / 2);
+      drawChip(c, r.chip, left + r.chip.bw / 2, y + (r.h - r.chip.bh) / 2);
     }
-    if (kind === 'name') { c.direction = 'rtl'; c.fillStyle = '#FFFFFF'; c.font = `600 ${L.name}px ${FONT}`; fitText(c, name, W / 2, mid, W - 140, L.name, 600); }
-    if (kind === 'foot') {
-      c.direction = 'rtl'; c.fillStyle = SOFT; c.font = `500 ${L.foot}px ${FONT}`;
-      const foot = v.date ? 'الأربعاء 25 نوفمبر   •   1.00 مساءً برزبن   •   6.00 صباحًا السعودية' : state.variant === 'class' ? 'حفل تخرج الطلبة السعوديين في برزبن' : 'Class of 2026';
-      c.direction = /[a-z]/i.test(foot) && !/[\u0600-\u06FF]/.test(foot) ? 'ltr' : 'rtl';
-      fitText(c, foot, W / 2, mid, W - 100, L.foot, 500);
-    }
-    y += h + L.gap;
+    y += r.h + r.gapAfter;
   }
-}
-
-function fitText(c, text, x, y, maxW, size, weight) {
-  let s = size;
-  c.font = `${weight} ${s}px ${FONT}`;
-  while (c.measureText(text).width > maxW && s > 10) { s -= 2; c.font = `${weight} ${s}px ${FONT}`; }
-  c.fillText(text, x, y);
 }
 
 function render() {
