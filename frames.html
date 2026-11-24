@@ -144,20 +144,10 @@ footer a{color:var(--ink)}
 <label class="lbl" for="uni">الجامعة <span class="en" lang="en">University (graduate frames only)</span></label>
 <select id="uni" dir="ltr" style="text-align:left">
 <option value="">بدون</option>
-<optgroup label="الجامعات الرئيسية">
 <option value="0">The University of Queensland</option>
 <option value="1">Queensland University of Technology</option>
 <option value="2">Griffith University</option>
-<option value="3">University of Southern Queensland</option>
-<option value="4">CQUniversity</option>
-</optgroup>
-<optgroup label="جامعات أخرى">
-<option value="5">Australian Catholic University</option>
-<option value="6">University of the Sunshine Coast</option>
-<option value="7">James Cook University</option>
-<option value="8">Bond University</option>
-<option value="9">Southern Cross University</option>
-</optgroup>
+<option value="3">James Cook University</option>
 </select>
 </div>
 </div>
@@ -204,7 +194,7 @@ const VARIANTS = {
   proud: { title: 'فخورين بك', sub: 'So proud of you!' },
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
-const UNIS = [['جامعة كوينزلاند', 'The University of Queensland'], ['جامعة كوينزلاند للتكنولوجيا', 'Queensland University of Technology'], ['جامعة غريفيث', 'Griffith University'], ['جامعة جنوب كوينزلاند', 'University of Southern Queensland'], ['جامعة سنترال كوينزلاند', 'CQUniversity'], ['الجامعة الكاثوليكية الأسترالية', 'Australian Catholic University'], ['جامعة صن شاين كوست', 'University of the Sunshine Coast'], ['جامعة جيمس كوك', 'James Cook University'], ['جامعة بوند', 'Bond University'], ['جامعة ساوثرن كروس', 'Southern Cross University']];
+const UNIS = [['UQ', 'The University of Queensland'], ['QUT', 'Queensland University of Technology'], ['Griffith', 'Griffith University'], ['JCU', 'James Cook University']];
 // Approved university logo files go here (index in UNIS : file name). When a logo is set, it shows on its own in place of the name.
 // Only add a logo once the university has approved its use and sent the official file.
 const UNI_LOGOS = {};
