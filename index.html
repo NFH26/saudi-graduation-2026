@@ -124,8 +124,15 @@ button.cta{border:0;font:inherit;font-weight:700;font-size:19px;cursor:pointer}
 .player{position:relative;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .lacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.joinbtn{display:flex;align-items:center;justify-content:center;gap:14px;min-height:72px;padding:12px 24px;border-radius:16px;background:var(--teal);color:var(--ink);font-weight:700;font-size:22px;text-decoration:none}
+.joinbtn .en{color:var(--ink)}
+.joinbtn svg{width:30px;height:30px;flex:none}
+.joinbtn:hover{background:#9adde2}
+.joinbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .lbtn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:8px 18px;border-radius:12px;background:var(--teal);color:var(--ink);font-weight:700;text-decoration:none}
 .lbtn .en{color:var(--ink)}
+.lbtn{flex-wrap:wrap;justify-content:center;column-gap:8px;row-gap:0;max-width:100%}
+.lbtn span{white-space:nowrap}
 .lbtn.alt{background:transparent;color:#fff;border:2px solid rgba(123,206,213,.6)}
 .lbtn.alt .en{color:#E4DCEE}
 .lbtn:focus-visible{outline:3px solid #fff;outline-offset:2px}
@@ -184,12 +191,13 @@ footer .names{display:flex;flex-direction:column}
 <section class="live" id="live" hidden aria-labelledby="liveTitle">
 <div class="wrap">
 <h2 id="liveTitle"><span class="ldot" id="liveDot"></span><span id="liveAr">البث المباشر</span><span class="en" lang="en" id="liveEn">Live now</span></h2>
-<div class="player"><iframe id="player" title="بث حفل التخرج" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+<a class="joinbtn" id="joinZoom" href="https://zoom.us/" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2"/><path d="M15.5 10.5L21 7.5v9l-5.5-3"/></svg><span class="ctxt"><span>انضم إلى البث عبر Zoom</span><span class="en" lang="en">Join the live stream on Zoom</span></span></a>
+<div class="player" id="playerBox" hidden><iframe id="player" title="بث حفل التخرج" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
 <div class="lacts">
-<a class="lbtn" id="ytLink" href="https://www.youtube.com/" target="_blank" rel="noopener">افتح على يوتيوب <span class="en" lang="en">Open on YouTube</span></a>
+<a class="lbtn" id="ytLink" href="https://www.youtube.com/" target="_blank" rel="noopener" hidden><span id="ytAr">افتح على يوتيوب</span> <span class="en" lang="en" id="ytEn">Open on YouTube</span></a>
 <a class="lbtn alt" id="zoomLink" href="https://zoom.us/" target="_blank" rel="noopener" hidden>رابط Zoom الاحتياطي <span class="en" lang="en">Zoom backup</span></a>
 </div>
-<p class="lnote" id="liveNote">إذا توقف البث، حدّث الصفحة أو افتحه على يوتيوب. البث متأخر عن الحفل بثوانٍ قليلة. <span class="en" lang="en">If the video stops, refresh the page or open it on YouTube. The stream runs a few seconds behind the hall.</span></p>
+<p class="lnote" id="liveNote">إذا لم يعمل الرابط الرئيسي، استخدم الرابط الاحتياطي. البث متأخر عن الحفل بثوانٍ قليلة. <span class="en" lang="en">If the main link does not work, use the backup link. The stream runs a few seconds behind the hall.</span></p>
 </div>
 </section>
 <header class="hero">
@@ -279,10 +287,10 @@ footer .names{display:flex;flex-direction:column}
 </div>
 <details><summary><span>أين يقام الحفل؟<span class="en" lang="en">Where is the ceremony?</span></span></summary><div class="ans"><p>في مركز UQ (المبنى 27A)، شارع Union Road، جامعة كوينزلاند، سانت لوسيا. <a href="https://www.google.com/maps/search/?api=1&amp;query=UQ%20Centre%20Building%20(27A)%2C%20St%20Lucia%20QLD%204067" target="_blank" rel="noopener">افتح الموقع في خرائط Google</a></p><span class="en" lang="en">UQ Centre (Building 27A), Union Road, The University of Queensland, St Lucia QLD 4067.</span></div></details>
 <details><summary><span>متى يبدأ الحفل؟<span class="en" lang="en">When does it start?</span></span></summary><div class="ans"><p>الأربعاء 25 نوفمبر 2026، الساعة 1.00 مساءً بتوقيت برزبن (6.00 صباحًا بتوقيت السعودية). يبدأ البث قبل الحفل بنصف ساعة تقريبًا.</p><span class="en" lang="en">Wednesday 25 November 2026, 1.00 pm Brisbane time (6.00 am Saudi time). The stream starts about 30 minutes earlier.</span></div></details>
-<details><summary><span>كيف أشاهد البث؟<span class="en" lang="en">How do I watch?</span></span></summary><div class="ans"><p>يظهر البث في أعلى هذه الصفحة عند بدئه، ويمكن مشاهدته على يوتيوب أيضًا. لا تحتاج إلى حساب أو تطبيق.</p><span class="en" lang="en">The video appears at the top of this page when it starts, and on YouTube. No account or app needed.</span></div></details>
-<details><summary><span>البث لا يعمل، ماذا أفعل؟<span class="en" lang="en">The stream is not working</span></span></summary><div class="ans"><p>حدّث الصفحة، أو افتح البث مباشرة على يوتيوب، أو استخدم رابط Zoom الاحتياطي الظاهر تحت البث.</p><span class="en" lang="en">Refresh the page, open it on YouTube, or use the Zoom backup link under the video.</span></div></details>
+<details><summary><span>كيف أشاهد البث؟<span class="en" lang="en">How do I watch?</span></span></summary><div class="ans"><p>يظهر رابط البث في أعلى هذه الصفحة قبل بدء الحفل بنصف ساعة، مع رابط احتياطي.</p><span class="en" lang="en">The live link appears at the top of this page 30 minutes before the start, with a backup link.</span></div></details>
+<details><summary><span>البث لا يعمل، ماذا أفعل؟<span class="en" lang="en">The stream is not working</span></span></summary><div class="ans"><p>حدّث الصفحة، أو استخدم الرابط الاحتياطي الظاهر أعلى الصفحة.</p><span class="en" lang="en">Refresh the page, or use the backup link at the top of the page.</span></div></details>
 <details><summary><span>لماذا البث متأخر قليلًا؟<span class="en" lang="en">Why is it slightly behind?</span></span></summary><div class="ans"><p>البث المباشر يتأخر عادة بثوانٍ قليلة عن الحفل، وهذا طبيعي.</p><span class="en" lang="en">Live streams usually run a few seconds behind the hall. This is normal.</span></div></details>
-<details><summary><span>هل سيتوفر تسجيل للحفل؟<span class="en" lang="en">Will there be a recording?</span></span></summary><div class="ans"><p>نعم، يبقى تسجيل الحفل متاحًا في أعلى هذه الصفحة بعد انتهاء البث.</p><span class="en" lang="en">Yes. The recording stays at the top of this page after the stream ends.</span></div></details>
+<details><summary><span>هل سيتوفر تسجيل للحفل؟<span class="en" lang="en">Will there be a recording?</span></span></summary><div class="ans"><p>نعم، سيُنشر تسجيل الحفل في أعلى هذه الصفحة بعد انتهائه.</p><span class="en" lang="en">Yes. The recording will be posted at the top of this page after the ceremony.</span></div></details>
 <details><summary><span>كيف أضيف الحفل إلى التقويم؟<span class="en" lang="en">How do I add it to my calendar?</span></span></summary><div class="ans"><p>استخدم زر «أضف إلى التقويم» أو «تقويم Google» أعلى الصفحة. يظهر الموعد بتوقيت بلدك تلقائيًا، مع تذكير قبل يوم وقبل نصف ساعة.</p><span class="en" lang="en">Use the calendar buttons above. It shows in your own time zone, with reminders 1 day and 30 minutes before.</span></div></details>
 <details><summary><span>كيف أصمم صورتي التذكارية؟<span class="en" lang="en">How do I make my photo?</span></span></summary><div class="ans"><p>افتح <a href="frames.html">صفحة إطارات التخرج</a>، اختر الإطار وأضف صورتك ثم شاركها. صورتك لا تُرفع إلى أي مكان.</p><span class="en" lang="en">Open the frames page, pick a frame, add your photo and share it. Your photo is never uploaded.</span></div></details>
 </div>
@@ -308,10 +316,14 @@ footer .names{display:flex;flex-direction:column}
 
 <script>
 {
-// Paste the YouTube video ID (the part after watch?v= or /live/) and the Zoom link when they are ready.
-const YOUTUBE_ID = '';
+// Live links. Zoom is the main way to watch for now and YouTube is the backup.
+// Once the YouTube stream is set up and tested, change PRIMARY to 'youtube'.
+const PRIMARY = 'zoom';
 const ZOOM_URL = '';
-const LIVE_URL = YOUTUBE_ID ? 'https://www.youtube.com/watch?v=' + YOUTUBE_ID : '';
+const YOUTUBE_ID = ''; // the part after watch?v= or /live/
+const YT_URL = YOUTUBE_ID ? 'https://www.youtube.com/watch?v=' + YOUTUBE_ID : '';
+const MAIN = PRIMARY === 'youtube' && YT_URL ? 'youtube' : ZOOM_URL ? 'zoom' : YT_URL ? 'youtube' : '';
+const LIVE_URL = MAIN === 'zoom' ? ZOOM_URL : YT_URL;
 const DAY = Date.UTC(2026, 10, 25, 0, 0, 0) - 10 * 3600000; // midnight 25 Nov in Brisbane
 const START = DAY + 13 * 3600000;
 const END = DAY + (14 * 60 + 30) * 60000;
@@ -342,7 +354,7 @@ if (LIVE_URL) {
   const a = document.createElement('a');
   a.className = 'watch';
   a.href = LIVE_URL;
-  a.innerHTML = '<span>شاهد الحفل مباشرة</span><span class="en" lang="en">Watch the ceremony live</span>';
+  a.innerHTML = MAIN === 'zoom' ? '<span>انضم إلى البث عبر Zoom</span><span class="en" lang="en">Join the live stream on Zoom</span>' : '<span>شاهد الحفل مباشرة على يوتيوب</span><span class="en" lang="en">Watch live on YouTube</span>';
   document.getElementById('watch').replaceWith(a);
 }
 
@@ -360,16 +372,25 @@ let current = -1;
 const LIVE_FROM = START - 30 * 60000;
 let liveMode = '';
 const syncLive = (now) => {
-  if (!YOUTUBE_ID) return;
+  if (!MAIN) return;
   const mode = now < LIVE_FROM ? 'soon' : now < END ? 'live' : 'replay';
   if (mode === liveMode) return;
   liveMode = mode;
   const box = el('live');
-  if (mode === 'soon') { box.hidden = true; return; }
-  if (!el('player').src) el('player').src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID + '?rel=0&playsinline=1';
-  el('ytLink').href = LIVE_URL;
-  el('zoomLink').hidden = !(ZOOM_URL && mode === 'live');
-  if (ZOOM_URL) el('zoomLink').href = ZOOM_URL;
+  // before: hidden; after: only a YouTube recording can be shown
+  if (mode === 'soon' || (mode === 'replay' && !YOUTUBE_ID)) { box.hidden = true; return; }
+  const showPlayer = mode === 'replay' || MAIN === 'youtube';
+  if (showPlayer && !el('player').src) el('player').src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID + '?rel=0&playsinline=1';
+  el('playerBox').hidden = !showPlayer;
+  el('joinZoom').hidden = !(mode === 'live' && MAIN === 'zoom');
+  if (ZOOM_URL) { el('joinZoom').href = ZOOM_URL; el('zoomLink').href = ZOOM_URL; }
+  el('zoomLink').hidden = !(mode === 'live' && MAIN === 'youtube' && ZOOM_URL);
+  el('ytLink').hidden = !YT_URL;
+  if (YT_URL) el('ytLink').href = YT_URL;
+  const ytBackup = mode === 'live' && MAIN === 'zoom';
+  el('ytAr').textContent = ytBackup ? 'رابط احتياطي: يوتيوب' : 'افتح على يوتيوب';
+  el('ytEn').textContent = ytBackup ? 'YouTube backup' : 'Open on YouTube';
+  el('ytLink').classList.toggle('alt', ytBackup);
   el('liveDot').hidden = mode !== 'live';
   el('liveAr').textContent = mode === 'live' ? 'البث المباشر' : 'شاهد التسجيل';
   el('liveEn').textContent = mode === 'live' ? 'Live now' : 'Watch the recording';

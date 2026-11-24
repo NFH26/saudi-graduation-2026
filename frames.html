@@ -142,21 +142,21 @@ footer a{color:var(--ink)}
 </select>
 <div id="uniWrap" style="margin-top:14px">
 <label class="lbl" for="uni">الجامعة <span class="en" lang="en">University (graduate frames only)</span></label>
-<select id="uni">
+<select id="uni" dir="ltr" style="text-align:left">
 <option value="">بدون</option>
 <optgroup label="الجامعات الرئيسية">
-<option value="0">جامعة كوينزلاند (UQ)</option>
-<option value="1">جامعة كوينزلاند للتكنولوجيا (QUT)</option>
-<option value="2">جامعة غريفيث (Griffith)</option>
-<option value="3">جامعة جنوب كوينزلاند (UniSQ)</option>
-<option value="4">جامعة سنترال كوينزلاند (CQU)</option>
+<option value="0">The University of Queensland</option>
+<option value="1">Queensland University of Technology</option>
+<option value="2">Griffith University</option>
+<option value="3">University of Southern Queensland</option>
+<option value="4">CQUniversity</option>
 </optgroup>
 <optgroup label="جامعات أخرى">
-<option value="5">الجامعة الكاثوليكية الأسترالية (ACU)</option>
-<option value="6">جامعة صن شاين كوست (UniSC)</option>
-<option value="7">جامعة جيمس كوك (JCU)</option>
-<option value="8">جامعة بوند (Bond)</option>
-<option value="9">جامعة ساوثرن كروس (SCU)</option>
+<option value="5">Australian Catholic University</option>
+<option value="6">University of the Sunshine Coast</option>
+<option value="7">James Cook University</option>
+<option value="8">Bond University</option>
+<option value="9">Southern Cross University</option>
 </optgroup>
 </select>
 </div>
@@ -205,6 +205,11 @@ const VARIANTS = {
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
 const UNIS = [['جامعة كوينزلاند', 'The University of Queensland'], ['جامعة كوينزلاند للتكنولوجيا', 'Queensland University of Technology'], ['جامعة غريفيث', 'Griffith University'], ['جامعة جنوب كوينزلاند', 'University of Southern Queensland'], ['جامعة سنترال كوينزلاند', 'CQUniversity'], ['الجامعة الكاثوليكية الأسترالية', 'Australian Catholic University'], ['جامعة صن شاين كوست', 'University of the Sunshine Coast'], ['جامعة جيمس كوك', 'James Cook University'], ['جامعة بوند', 'Bond University'], ['جامعة ساوثرن كروس', 'Southern Cross University']];
+// Approved university logo files go here (index in UNIS : file name). When a logo is set, it shows on its own in place of the name.
+// Only add a logo once the university has approved its use and sent the official file.
+const UNI_LOGOS = {};
+const uniImgs = {};
+for (const [i, src] of Object.entries(UNI_LOGOS)) { const im = new Image(); im.onload = () => render(); im.src = src; uniImgs[i] = im; }
 const GRAD_FRAMES = ['grad_m', 'grad_f'];
 const DEGREES = [['دبلوم اللغة الإنجليزية', 'English Diploma'], ['البكالوريوس', "Bachelor's"], ['الماجستير', "Master's"], ['الدكتوراة', 'PhD']];
 // Frame parts are kept small: logo badge at the top, one compact card at the bottom (under 20% of the photo)
@@ -260,7 +265,18 @@ function buildRows(c, L) {
     if (chip) rows.push({ kind: 'chip', chip, w: chip.bw, h: chip.bh, gapAfter: L.gap });
     if (nm) rows.push(text(nm, '#FFFFFF', L.gap));
   }
-  const uni = state.uni !== '' && GRAD_FRAMES.includes(state.variant) ? UNIS[Number(state.uni)][0] : '';
+  const isGrad = state.uni !== '' && GRAD_FRAMES.includes(state.variant);
+  const logo = isGrad && uniImgs[state.uni] && uniImgs[state.uni].naturalWidth ? uniImgs[state.uni] : null;
+  if (logo) {
+    // white pill with the university logo alone, next to "Class of 2026"
+    const ph = Math.round(L.foot * 2.1), lh = ph * 0.68;
+    const lw = Math.min(inner * 0.5, lh * logo.naturalWidth / logo.naturalHeight);
+    const pill = { img: logo, lw, lh: lw * logo.naturalHeight / logo.naturalWidth, bw: lw + ph * 0.6, bh: ph };
+    const m = measure(c, 'Class of 2026', 500, L.foot, inner - pill.bw - L.foot, 'ltr');
+    rows.push({ kind: 'logo', pill, m, w: pill.bw + L.foot + m.w, h: ph, gapAfter: 0 });
+    return rows;
+  }
+  const uni = isGrad ? UNIS[Number(state.uni)][1] : '';
   const foot = VARIANTS[state.variant].date ? 'الأربعاء 25 نوفمبر  •  1.00 مساءً برزبن  •  6.00 صباحًا السعودية' : state.variant === 'class' ? 'حفل تخرج الطلبة السعوديين في برزبن' : uni ? uni + '  •  Class of 2026' : 'Class of 2026';
   rows.push(text(measure(c, foot, 500, L.foot, inner, isLatin(foot) ? 'ltr' : 'rtl'), SOFT, 0));
   return rows;
@@ -326,6 +342,12 @@ function drawFrame(c, L, opts) {
       // RTL reading: name on the right, degree chip on the left
       drawText(c, r.nm, '#FFFFFF', left + r.w - r.nm.w / 2, y + r.h / 2 + (r.nm.asc - r.nm.desc) / 2);
       drawChip(c, r.chip, left + r.chip.bw / 2, y + (r.h - r.chip.bh) / 2);
+    }
+    if (r.kind === 'logo') {
+      const left = mid - r.w / 2, p = r.pill;
+      c.fillStyle = '#FFFFFF'; roundRect(c, left, y, p.bw, p.bh, p.bh * 0.26); c.fill();
+      c.drawImage(p.img, left + (p.bw - p.lw) / 2, y + (p.bh - p.lh) / 2, p.lw, p.lh);
+      drawText(c, r.m, SOFT, left + p.bw + L.foot + r.m.w / 2, y + r.h / 2 + (r.m.asc - r.m.desc) / 2);
     }
     y += r.h + r.gapAfter;
   }
