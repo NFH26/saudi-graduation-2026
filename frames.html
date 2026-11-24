@@ -195,9 +195,8 @@ const VARIANTS = {
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
 const UNIS = [['UQ', 'The University of Queensland'], ['QUT', 'Queensland University of Technology'], ['Griffith', 'Griffith University'], ['JCU', 'James Cook University']];
-// Approved university logo files go here (index in UNIS : file name). When a logo is set, it shows on its own in place of the name.
-// Only add a logo once the university has approved its use and sent the official file.
-const UNI_LOGOS = {};
+// University logos (index in UNIS : file). The logo shows on its own in place of the name.
+const UNI_LOGOS = { 0: 'uni-uq.png', 1: 'uni-qut.png', 2: 'uni-griffith.png', 3: 'uni-jcu.png' };
 const uniImgs = {};
 for (const [i, src] of Object.entries(UNI_LOGOS)) { const im = new Image(); im.onload = () => render(); im.src = src; uniImgs[i] = im; }
 const GRAD_FRAMES = ['grad_m', 'grad_f'];
@@ -259,8 +258,11 @@ function buildRows(c, L) {
   const logo = isGrad && uniImgs[state.uni] && uniImgs[state.uni].naturalWidth ? uniImgs[state.uni] : null;
   if (logo) {
     // white pill with the university logo alone, next to "Class of 2026"
-    const ph = Math.round(L.foot * 2.1), lh = ph * 0.68;
-    const lw = Math.min(inner * 0.5, lh * logo.naturalWidth / logo.naturalHeight);
+    // taller pill so logo text stays readable; narrow logos get a little more height so all four look the same size
+    const ph = Math.round(L.foot * 3.1), ar = logo.naturalWidth / logo.naturalHeight;
+    const lh = Math.min(ph * 0.84, ph * 0.74 * Math.sqrt(3.2 / ar));
+    const lw = Math.min(inner * 0.5, lh * ar);
+    if (rows.length) rows[rows.length - 1].gapAfter = Math.round(L.gap * 0.7);
     const pill = { img: logo, lw, lh: lw * logo.naturalHeight / logo.naturalWidth, bw: lw + ph * 0.6, bh: ph };
     const m = measure(c, 'Class of 2026', 500, L.foot, inner - pill.bw - L.foot, 'ltr');
     rows.push({ kind: 'logo', pill, m, w: pill.bw + L.foot + m.w, h: ph, gapAfter: 0 });

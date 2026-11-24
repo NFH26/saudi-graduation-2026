@@ -191,11 +191,11 @@ footer .names{display:flex;flex-direction:column}
 <section class="live" id="live" hidden aria-labelledby="liveTitle">
 <div class="wrap">
 <h2 id="liveTitle"><span class="ldot" id="liveDot"></span><span id="liveAr">البث المباشر</span><span class="en" lang="en" id="liveEn">Live now</span></h2>
-<a class="joinbtn" id="joinZoom" href="https://zoom.us/" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2"/><path d="M15.5 10.5L21 7.5v9l-5.5-3"/></svg><span class="ctxt"><span>انضم إلى البث عبر Zoom</span><span class="en" lang="en">Join the live stream on Zoom</span></span></a>
+<a class="joinbtn" id="joinZoom" href="https://zoom.us/" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2"/><path d="M15.5 10.5L21 7.5v9l-5.5-3"/></svg><span class="ctxt"><span>انضم إلى البث عبر Zoom Webinar</span><span class="en" lang="en">Join the Zoom Webinar</span></span></a>
 <div class="player" id="playerBox" hidden><iframe id="player" title="بث حفل التخرج" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
 <div class="lacts">
 <a class="lbtn" id="ytLink" href="https://www.youtube.com/" target="_blank" rel="noopener" hidden><span id="ytAr">افتح على يوتيوب</span> <span class="en" lang="en" id="ytEn">Open on YouTube</span></a>
-<a class="lbtn alt" id="zoomLink" href="https://zoom.us/" target="_blank" rel="noopener" hidden>رابط Zoom الاحتياطي <span class="en" lang="en">Zoom backup</span></a>
+<a class="lbtn alt" id="zoomLink" href="https://zoom.us/" target="_blank" rel="noopener" hidden>رابط Zoom Webinar الاحتياطي <span class="en" lang="en">Zoom Webinar backup</span></a>
 </div>
 <p class="lnote" id="liveNote">إذا لم يعمل الرابط الرئيسي، استخدم الرابط الاحتياطي. البث متأخر عن الحفل بثوانٍ قليلة. <span class="en" lang="en">If the main link does not work, use the backup link. The stream runs a few seconds behind the hall.</span></p>
 </div>
@@ -316,10 +316,10 @@ footer .names{display:flex;flex-direction:column}
 
 <script>
 {
-// Live links. Zoom is the main way to watch for now and YouTube is the backup.
+// Live links. The Zoom Webinar is the main way to watch for now and YouTube is the backup.
 // Once the YouTube stream is set up and tested, change PRIMARY to 'youtube'.
 const PRIMARY = 'zoom';
-const ZOOM_URL = '';
+const ZOOM_URL = ''; // Zoom Webinar join link for attendees
 const YOUTUBE_ID = ''; // the part after watch?v= or /live/
 const YT_URL = YOUTUBE_ID ? 'https://www.youtube.com/watch?v=' + YOUTUBE_ID : '';
 const MAIN = PRIMARY === 'youtube' && YT_URL ? 'youtube' : ZOOM_URL ? 'zoom' : YT_URL ? 'youtube' : '';
@@ -354,7 +354,7 @@ if (LIVE_URL) {
   const a = document.createElement('a');
   a.className = 'watch';
   a.href = LIVE_URL;
-  a.innerHTML = MAIN === 'zoom' ? '<span>انضم إلى البث عبر Zoom</span><span class="en" lang="en">Join the live stream on Zoom</span>' : '<span>شاهد الحفل مباشرة على يوتيوب</span><span class="en" lang="en">Watch live on YouTube</span>';
+  a.innerHTML = MAIN === 'zoom' ? '<span>انضم إلى البث عبر Zoom Webinar</span><span class="en" lang="en">Join the Zoom Webinar</span>' : '<span>شاهد الحفل مباشرة على يوتيوب</span><span class="en" lang="en">Watch live on YouTube</span>';
   document.getElementById('watch').replaceWith(a);
 }
 
