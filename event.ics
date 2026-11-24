@@ -15,8 +15,8 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:saudi-graduation-2026@grad.nfh.sa
-DTSTAMP:20261124T090000Z
-SEQUENCE:1
+DTSTAMP:20261124T120000Z
+SEQUENCE:2
 DTSTART;TZID=Australia/Brisbane:20261125T130000
 DTEND;TZID=Australia/Brisbane:20261125T143000
 SUMMARY:حفل تخريج الطلبة السعوديين في برزبن 2
@@ -25,11 +25,13 @@ DESCRIPTION:البث المباشر لحفل تخريج الطلبة الس
  عوديين من جامعات كوينزلاند.\nيبدأ الساعة 
  1.00 مساءً بتوقيت برزبن (6.00 صباحًا بتوقيت ا
  لسعودية).\nالمكان: مركز UQ (المبنى 27A)، جامع
- ة كوينزلاند، سانت لوسيا\nرابط الصفحة وال
- بث: https://grad.nfh.sa/\n\nLive stream of the Saudi Graduation Ceremony
-  2026\, Brisbane.\nStarts 1.00 pm Brisbane time (6.00 am Saudi time).\nVen
- ue: UQ Centre (Building 27A)\, Union Road\, The University of Queensland\,
-  St Lucia QLD 4067\nPage and live link: https://grad.nfh.sa/
+ ة كوينزلاند، سانت لوسيا\nرابط البث (Zoom Webin
+ ar): https://uqz.zoom.us/j/89462640609\nصفحة الحفل: https://grad.
+ nfh.sa/\n\nLive stream of the Saudi Graduation Ceremony 2026\, Brisbane.\n
+ Starts 1.00 pm Brisbane time (6.00 am Saudi time).\nVenue: UQ Centre (Buil
+ ding 27A)\, Union Road\, The University of Queensland\, St Lucia QLD 4067\
+ nJoin the live stream (Zoom Webinar): https://uqz.zoom.us/j/89462640609\nC
+ eremony page: https://grad.nfh.sa/
 LOCATION:UQ Centre (Building 27A)\, Union Road\, The University of Queensla
  nd\, St Lucia QLD 4067
 URL:https://grad.nfh.sa/
