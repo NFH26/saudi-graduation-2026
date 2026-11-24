@@ -47,6 +47,7 @@ canvas:active{cursor:grabbing}
 .hint{margin:10px 4px 0;font-size:14px;color:var(--soft);text-align:center}
 .steps{display:flex;flex-direction:column;gap:22px}
 fieldset{border:0;margin:0;padding:0}
+[hidden]{display:none!important}
 legend,.lbl{font-weight:700;font-size:18px;margin-bottom:10px;padding:0;display:flex;justify-content:space-between;gap:12px;width:100%}
 legend .en,.lbl .en{font-size:13px}
 .pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -139,6 +140,22 @@ footer a{color:var(--ink)}
 <option value="2">الماجستير</option>
 <option value="3">الدكتوراة</option>
 </select>
+<div id="uniWrap" style="margin-top:14px">
+<label class="lbl" for="uni">الجامعة <span class="en" lang="en">University (graduate frames only)</span></label>
+<select id="uni">
+<option value="">بدون</option>
+<option value="0">جامعة كوينزلاند</option>
+<option value="1">جامعة كوينزلاند للتكنولوجيا</option>
+<option value="2">جامعة غريفيث</option>
+<option value="3">الجامعة الكاثوليكية الأسترالية</option>
+<option value="4">جامعة جنوب كوينزلاند</option>
+<option value="5">جامعة صن شاين كوست</option>
+<option value="6">جامعة سنترال كوينزلاند</option>
+<option value="7">جامعة جيمس كوك</option>
+<option value="8">جامعة بوند</option>
+<option value="9">جامعة ساوثرن كروس</option>
+</select>
+</div>
 </div>
 
 <div>
@@ -183,16 +200,18 @@ const VARIANTS = {
   proud: { title: 'فخورين بك', sub: 'So proud of you!' },
   class: { title: 'Class of 2026', sub: '', ltr: true }
 };
+const UNIS = [['جامعة كوينزلاند', 'The University of Queensland'], ['جامعة كوينزلاند للتكنولوجيا', 'Queensland University of Technology'], ['جامعة غريفيث', 'Griffith University'], ['الجامعة الكاثوليكية الأسترالية', 'Australian Catholic University'], ['جامعة جنوب كوينزلاند', 'University of Southern Queensland'], ['جامعة صن شاين كوست', 'University of the Sunshine Coast'], ['جامعة سنترال كوينزلاند', 'CQUniversity'], ['جامعة جيمس كوك', 'James Cook University'], ['جامعة بوند', 'Bond University'], ['جامعة ساوثرن كروس', 'Southern Cross University']];
+const GRAD_FRAMES = ['grad_m', 'grad_f'];
 const DEGREES = [['دبلوم اللغة الإنجليزية', 'English Diploma'], ['البكالوريوس', "Bachelor's"], ['الماجستير', "Master's"], ['الدكتوراة', 'PhD']];
 // Frame parts are kept small: logo badge at the top, one compact card at the bottom (under 20% of the photo)
 const LAYOUT = {
-  story: { W: 1080, H: 1920, badgeW: 390, badgeH: 128, badgeY: 40, lockW: 348, maxW: 900, minW: 600, padX: 50, padY: 28, bottom: 56, radius: 40, title: 94, sub: 33, chip: 26, name: 39, foot: 24, gap: 16 },
-  square: { W: 1080, H: 1080, badgeW: 280, badgeH: 92, badgeY: 24, lockW: 250, maxW: 850, minW: 460, padX: 36, padY: 20, bottom: 30, radius: 30, title: 62, sub: 23, chip: 19, name: 28, foot: 18, gap: 11 }
+  story: { W: 1080, H: 1920, badgeW: 390, badgeH: 128, badgeY: 40, lockW: 348, maxW: 900, minW: 600, padX: 50, padY: 28, bottom: 56, radius: 40, title: 94, sub: 33, chip: 26, name: 39, uni: 26, foot: 24, gap: 16 },
+  square: { W: 1080, H: 1080, badgeW: 280, badgeH: 92, badgeY: 24, lockW: 250, maxW: 850, minW: 460, padX: 36, padY: 20, bottom: 30, radius: 30, title: 62, sub: 23, chip: 19, name: 28, uni: 19, foot: 18, gap: 11 }
 };
 const cv = document.getElementById('cv');
 const ctx = cv.getContext('2d');
 const el = (id) => document.getElementById(id);
-const state = { variant: 'grad_m', format: 'story', degree: '', name: '', img: null, zoom: 1, ox: 0, oy: 0 };
+const state = { variant: 'grad_m', format: 'story', degree: '', name: '', uni: '', img: null, zoom: 1, ox: 0, oy: 0 };
 const lockup = new Image();
 lockup.src = 'grad_lockup_navy.png';
 
@@ -237,7 +256,8 @@ function buildRows(c, L) {
     if (chip) rows.push({ kind: 'chip', chip, w: chip.bw, h: chip.bh, gapAfter: L.gap });
     if (nm) rows.push(text(nm, '#FFFFFF', L.gap));
   }
-  const foot = VARIANTS[state.variant].date ? 'الأربعاء 25 نوفمبر  •  1.00 مساءً برزبن  •  6.00 صباحًا السعودية' : state.variant === 'class' ? 'حفل تخرج الطلبة السعوديين في برزبن' : 'Class of 2026';
+  const uni = state.uni !== '' && GRAD_FRAMES.includes(state.variant) ? UNIS[Number(state.uni)][0] : '';
+  const foot = VARIANTS[state.variant].date ? 'الأربعاء 25 نوفمبر  •  1.00 مساءً برزبن  •  6.00 صباحًا السعودية' : state.variant === 'class' ? 'حفل تخرج الطلبة السعوديين في برزبن' : uni ? uni + '  •  Class of 2026' : 'Class of 2026';
   rows.push(text(measure(c, foot, 500, L.foot, inner, isLatin(foot) ? 'ltr' : 'rtl'), SOFT, 0));
   return rows;
 }
@@ -316,9 +336,9 @@ function render() {
 }
 
 // transparent overlay export, used to prepare Snapchat Lens / TikTok effect assets
-window.__overlay = (variant, format, degree, name) => {
+window.__overlay = (variant, format, degree, name, uni) => {
   const keep = { ...state };
-  Object.assign(state, { variant, format, degree: degree || '', name: name || '' });
+  Object.assign(state, { variant, format, degree: degree || '', name: name || '', uni: uni || '' });
   const L = LAYOUT[format];
   const c2 = document.createElement('canvas'); c2.width = L.W; c2.height = L.H;
   drawFrame(c2.getContext('2d'), L, { overlay: true });
@@ -339,7 +359,10 @@ function loadFile(file) {
 el('camera').addEventListener('change', (e) => loadFile(e.target.files[0]));
 el('gallery').addEventListener('change', (e) => loadFile(e.target.files[0]));
 el('zoom').addEventListener('input', (e) => { state.zoom = Number(e.target.value); render(); });
-document.querySelectorAll('input[name=v]').forEach((r) => r.addEventListener('change', () => { state.variant = r.value; render(); }));
+const syncUni = () => { el('uniWrap').hidden = !GRAD_FRAMES.includes(state.variant); };
+document.querySelectorAll('input[name=v]').forEach((r) => r.addEventListener('change', () => { state.variant = r.value; syncUni(); render(); }));
+el('uni').addEventListener('change', (e) => { state.uni = e.target.value; render(); });
+syncUni();
 document.querySelectorAll('input[name=f]').forEach((r) => r.addEventListener('change', () => { state.format = r.value; state.ox = 0; state.oy = 0; render(); }));
 el('degree').addEventListener('change', (e) => { state.degree = e.target.value; render(); });
 el('name').addEventListener('input', (e) => { state.name = e.target.value; render(); });
