@@ -19,23 +19,24 @@ body{font:17px/1.6 'Readex Pro',Tahoma,'Segoe UI',sans-serif;overflow-x:clip}
 img{max-width:100%;display:block}
 a{color:inherit}
 .wrap{max-width:1240px;margin:0 auto;padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
-.en{direction:ltr;unicode-bidi:isolate;font-size:.82em;font-weight:500;color:var(--soft)}
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff 55%,var(--grey) 100%)}
-.hero .deco{position:absolute;left:0;bottom:0;width:min(62vw,760px);height:auto;pointer-events:none;transform:scaleX(-1)}
-.hero .wrap{position:relative;padding-top:clamp(20px,3vw,36px);padding-bottom:clamp(36px,6vw,80px)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.top img{height:clamp(44px,6vw,64px);width:auto}
+.en{direction:ltr;unicode-bidi:isolate;font-size:max(13px,.82em);font-weight:500;color:var(--soft)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.hero{background:#fff}
+.hero .wrap{padding-top:clamp(16px,3vw,36px);padding-bottom:clamp(20px,3.5vw,40px)}
+.fx{display:block;width:100%;height:clamp(56px,8vw,120px)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px 16px;flex-wrap:wrap}
+.top img{height:clamp(40px,6vw,64px);width:auto}
 .pill{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 18px;font-weight:600;font-size:16px}
 .pill .en{color:#E4DCEE}
 .pill .dot{width:10px;height:10px;border-radius:50%;background:var(--pink);flex:none}
 .pill.live{background:var(--red)}
 .pill.live .dot{background:#fff}
 .pill.live .en{color:#fff}
-.lockup{width:min(100%,760px);margin:clamp(24px,4vw,48px) 0 clamp(20px,3vw,32px)}
-.degrees{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:3px solid var(--teal);max-width:760px;background:rgba(255,255,255,.7)}
-.degrees div{padding:12px 6px;text-align:center;display:flex;flex-direction:column;gap:2px;border-inline-end:2px solid #CFEBEE}
-.degrees div:last-child{border:0}
-.degrees b{font-size:clamp(15px,1.7vw,19px);font-weight:600;line-height:1.35}
+.lockup{width:min(100%,760px);margin:clamp(24px,4vw,48px) auto clamp(20px,3vw,32px)}
+.degrees{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:3px solid var(--teal);max-width:860px;margin-inline:auto;background:#fff}
+.degrees div{padding:12px 8px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:2px;border-inline-end:2px solid #CFEBEE}
+.degrees div:last-child{border-inline-end:0}
+.degrees b{font-size:clamp(15px,1.6vw,19px);font-weight:600;line-height:1.35;overflow-wrap:anywhere}
 .degrees .en{font-size:13px;font-weight:600;color:var(--pink-t)}
 .when{background:var(--ink);color:#fff}
 .when .en{color:#E4DCEE}
@@ -47,9 +48,9 @@ a{color:inherit}
 .date .en{font-size:16px}
 .big{font-size:clamp(42px,5vw,62px);font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 .city{background:rgba(255,255,255,.08);border:1px solid rgba(123,206,213,.4);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
-.city .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.city .t b{font-size:clamp(30px,3.2vw,42px);line-height:1.15;white-space:nowrap}
-.city .t .en{font-size:18px;font-weight:600;white-space:nowrap}
+.city .t{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.city .t b{font-size:clamp(30px,3.2vw,42px);line-height:1.2;white-space:nowrap}
+.city .t .en{font-size:17px;font-weight:600;white-space:nowrap}
 .city .now{display:flex;justify-content:space-between;gap:10px;font-size:15px;color:#E4DCEE;flex-wrap:wrap}
 .city .now b{white-space:nowrap}
 .watch{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px 14px;min-height:56px;border-radius:16px;font-size:19px;font-weight:600;text-decoration:none;padding:12px 20px;text-align:center;flex-wrap:wrap}
@@ -86,15 +87,16 @@ footer .wrap{padding-top:28px;padding-bottom:36px;display:flex;justify-content:s
 footer img{height:56px;width:auto}
 footer .names{display:flex;flex-direction:column}
 @media(max-width:900px){.when .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.count{grid-column:1/-1}}
-@media(max-width:700px){.rows li{grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 6px}.rows .tm{grid-row:1/3}.rows .ar{grid-column:2}.rows .en{grid-column:2;text-align:right}}
-@media(max-width:480px){.city .t b{font-size:26px}.city{padding:14px}.degrees .en{font-size:12px}.hero .deco{width:90vw}.rows .bne{font-size:17px}}
+@media(max-width:700px){.rows li{grid-template-columns:minmax(0,1fr);gap:2px;padding:14px 4px}.rows .tm{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 12px}.rows .en{text-align:right}.head{flex-direction:column;align-items:stretch}.head .en{text-align:right}.date .en,.count .lbl{text-align:right}}
+@media(max-width:600px){.degrees{grid-template-columns:repeat(2,minmax(0,1fr))}.degrees div:nth-child(2){border-inline-end:0}.degrees div:nth-child(-n+2){border-bottom:2px solid #CFEBEE}.degrees b{font-size:17px}}
+@media(max-width:520px){.when .wrap{grid-template-columns:minmax(0,1fr)}.city .t b{font-size:30px}}
+@media(max-width:420px){.pill .en{display:none}.pill{padding:8px 14px;font-size:15px}.big{font-size:40px}.rows .ar{font-size:18px}}
 @media(prefers-reduced-motion:no-preference){.pill.live .dot{animation:pulse 1.6s ease-in-out infinite}}
 @keyframes pulse{50%{opacity:.35}}
 </style>
 </head>
 <body>
 <header class="hero">
-<svg class="deco" viewBox="0 0 760 420" aria-hidden="true"><polygon points="0,420 760,40 760,420" fill="#7BCED5"/><polygon points="180,420 350,362 460,420" fill="#8BBE55"/><polygon points="390,420 760,0 760,420" fill="#452E5E"/><path d="M-160,420 L250,190 L760,-60" stroke="#D976B0" stroke-width="6" fill="none"/></svg>
 <div class="wrap">
 <div class="top">
 <span class="pill" id="status"><span class="dot"></span><span id="statusAr">يبدأ البث قريبًا</span><span class="en" lang="en" id="statusEn">Starting soon</span></span>
@@ -105,9 +107,10 @@ footer .names{display:flex;flex-direction:column}
 <div><b>دبلوم اللغة الإنجليزية</b><span class="en" lang="en">English Diploma</span></div>
 <div><b>البكالوريوس</b><span class="en" lang="en">Bachelor</span></div>
 <div><b>الماجستير</b><span class="en" lang="en">Master</span></div>
-<div><b>الدكتوراه</b><span class="en" lang="en">PhD</span></div>
+<div><b>الدكتوراة</b><span class="en" lang="en">PhD</span></div>
 </div>
 </div>
+<svg class="fx" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D5D4D5" stop-opacity="0"/><stop offset="1" stop-color="#D5D4D5"/></linearGradient></defs><rect width="1440" height="120" fill="url(#gg)"/><path d="M1440,46 L1120,14 L800,74 L470,34 M1120,14 L990,120 M800,74 L990,120 M800,74 L600,120" stroke="#ffffff" stroke-width="4" fill="none" vector-effect="non-scaling-stroke"/><polygon points="0,120 0,18 640,120" fill="#7BCED5"/><polygon points="400,120 520,94 590,120" fill="#8BBE55"/><polygon points="0,120 0,0 300,120" fill="#452E5E"/><path d="M0,-6 L780,120" stroke="#D976B0" stroke-width="5" fill="none" vector-effect="non-scaling-stroke"/></svg>
 </header>
 
 <section class="when" aria-label="موعد الحفل">
