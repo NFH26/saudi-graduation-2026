@@ -11,6 +11,13 @@ Live at https://grad.nfh.sa
 - `event.ics`: calendar file in Brisbane time.
 - `status-story.jpg`: ready-made status image with a QR code to the page.
 
+## After the event
+
+The site is now in its after-event version: a thank-you message replaces the countdown, times, calendar
+buttons, venue and FAQ, and the frames page offers only the graduate and family frames.
+This is switched by `class="ended"` on the `<body>` tag in `index.html`. Remove it to bring back
+the pre-event page.
+
 ## Adding the live links
 
 Open `index.html` and find these lines near the top of the script:

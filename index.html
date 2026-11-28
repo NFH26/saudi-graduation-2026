@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>حفل التخرج 2026 مباشر</title>
-<meta name="description" content="حفل تخريج الطلبة السعوديين في برزبن، الأربعاء 25 نوفمبر 2026، 1.00 مساءً بتوقيت برزبن (6.00 صباحًا بتوقيت السعودية)، في مركز UQ بجامعة كوينزلاند، مع بث مباشر.">
+<title>حفل تخرج الطلبة السعوديين في برزبن 2026</title>
+<meta name="description" content="أُقيم حفل تخريج الطلبة السعوديين في برزبن يوم الأربعاء 25 نوفمبر 2026 في مركز UQ بجامعة كوينزلاند. شكرًا لكل من حضر وتابع، ومبروك للخريجين والخريجات.">
 <meta name="theme-color" content="#452E5E">
 <link rel="canonical" href="https://grad.nfh.sa/">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="نادي الطلبة السعوديين في برزبن">
 <meta property="og:locale" content="ar_SA">
 <meta property="og:title" content="حفل تخريج الطلبة السعوديين في برزبن 2026 | Saudi Graduation Ceremony 2026">
-<meta property="og:description" content="بث مباشر الأربعاء 25 نوفمبر 2026، 1.00 مساءً بتوقيت برزبن (6.00 صباحًا بتوقيت السعودية). Live Wednesday 25 November 2026, 1.00 pm Brisbane time.">
+<meta property="og:description" content="انتهى الحفل. شكرًا لكل من حضر وتابع، ومبروك للخريجين والخريجات. The ceremony was held on Wednesday 25 November 2026.">
 <meta property="og:image" content="https://grad.nfh.sa/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -70,6 +70,16 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .city .t .en{font-size:17px;font-weight:600;white-space:nowrap}
 .city .now{display:flex;justify-content:space-between;gap:10px;font-size:15px;color:#E4DCEE;flex-wrap:wrap}
 .city .now b{white-space:nowrap}
+/* after the event: thank-you message in place of the countdown, times and calendar buttons */
+.done{display:none}
+.ended .done{display:block;grid-column:1/-1;text-align:center;padding:clamp(8px,2vw,24px) 0}
+.ended .count,.ended .city,.ended .when .watch,.ended .acts,.ended .venue,.ended .faq,.ended #statusBtn,.ended #live{display:none!important}
+.done .dk{margin:0;color:var(--teal);font-weight:600;font-size:18px}
+.done .dk .en{color:var(--teal);font-size:15px;margin-inline-start:6px}
+.done h2{margin:10px auto 6px;max-width:760px;font-size:clamp(26px,3.6vw,42px);line-height:1.3}
+.done .en{display:block}
+.done .cls{margin:18px 0 0;font-size:clamp(22px,2.6vw,30px);font-weight:600;color:var(--teal)}
+.done .dd{margin:18px auto 0;max-width:640px;font-size:15px;color:#E4DCEE}
 .watch{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px 14px;min-height:56px;border-radius:16px;font-size:19px;font-weight:600;text-decoration:none;padding:12px 20px;text-align:center;flex-wrap:wrap}
 a.watch{background:var(--teal);color:var(--ink)}
 a.watch .en{color:var(--ink)}
@@ -189,7 +199,7 @@ footer .names{display:flex;flex-direction:column}
 @keyframes pulse{50%{opacity:.35}}
 </style>
 </head>
-<body>
+<body class="ended">
 <section class="live" id="live" hidden aria-labelledby="liveTitle">
 <div class="wrap">
 <h2 id="liveTitle"><span class="ldot" id="liveDot"></span><span id="liveAr">البث المباشر</span><span class="en" lang="en" id="liveEn">Live now</span></h2>
@@ -206,7 +216,7 @@ footer .names{display:flex;flex-direction:column}
 <svg class="facets" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><polygon points="0,0 560,0 0,360" fill="#fff" opacity=".05"/><polygon points="1440,0 1440,400 940,0" fill="#fff" opacity=".035"/><polygon points="1440,560 1440,250 820,560" fill="#000" opacity=".14"/><polygon points="0,560 0,400 380,560" fill="#000" opacity=".1"/><path d="M0,360 L560,0" stroke="#7BCED5" stroke-opacity=".55" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/></svg>
 <div class="wrap">
 <div class="top">
-<span class="pill" id="status"><span class="dot"></span><span id="statusAr">يبدأ البث قريبًا</span><span class="en" lang="en" id="statusEn">Starting soon</span></span>
+<span class="pill" id="status"><span class="dot"></span><span id="statusAr">انتهى الحفل</span><span class="en" lang="en" id="statusEn">Ceremony ended</span></span>
 <img src="moe_sacm_white.png" alt="وزارة التعليم والملحقية الثقافية السعودية في أستراليا">
 </div>
 <img class="lockup" src="grad_lockup_white.png" alt="نادي الطلبة السعوديين في برزبن، حفل التخرج 2026">
@@ -222,6 +232,13 @@ footer .names{display:flex;flex-direction:column}
 
 <section class="when" aria-label="موعد الحفل">
 <div class="wrap">
+<div class="done">
+<p class="dk">انتهى الحفل <span class="en" lang="en">The ceremony has ended</span></p>
+<h2>شكرًا لكل من حضر وتابع، ومبروك للخريجين والخريجات</h2>
+<p class="en" lang="en">Thank you to everyone who attended and watched. Congratulations to our graduates.</p>
+<p class="cls" lang="en">Class of 2026</p>
+<p class="dd">أُقيم الحفل يوم الأربعاء 25 نوفمبر 2026 في مركز UQ، جامعة كوينزلاند<span class="en" lang="en">Held on Wednesday 25 November 2026 at the UQ Centre, The University of Queensland</span></p>
+</div>
 <div class="count">
 <div class="lbl"><span id="cdAr">يبدأ الحفل بعد</span><span class="en" lang="en" id="cdEn">Starts in</span></div>
 <div class="big" id="countdown">--:--:--</div>
@@ -264,7 +281,7 @@ footer .names{display:flex;flex-direction:column}
 
 <section class="booth" aria-labelledby="boothTitle">
 <div class="wrap">
-<div><h2 id="boothTitle">صورتك التذكارية بإطار التخرج</h2><p>سأحضر الحفل، سأتابع البث، أنا خريج، أنا خريجة، فخورين بك. شاركها في سناب شات وإنستغرام وتيك توك وواتساب.</p><span class="en" lang="en">Photo frames to share on Snapchat, Instagram, TikTok and WhatsApp</span></div>
+<div><h2 id="boothTitle">صورتك التذكارية بإطار التخرج</h2><p>أنا خريج، أنا خريجة، فخورين بك، Class of 2026. شاركها في سناب شات وإنستغرام وتيك توك وواتساب.</p><span class="en" lang="en">Photo frames to share on Snapchat, Instagram, TikTok and WhatsApp</span></div>
 <div class="ctas">
 <a class="cta" href="frames.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="ctxt"><span>صمّم صورتك</span><span class="en" lang="en">Make your photo</span></span></a>
 <button class="cta alt" type="button" id="statusBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg><span class="ctxt"><span id="statusAr2">صورة جاهزة للحالة</span><span class="en" lang="en" id="statusEn2">Ready status image</span></span></button>
